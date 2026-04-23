@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Aman</title>
+    <style>
+        :root {
+            --bg-color: #1e293b; 
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-sage: #9ca3af; 
+            --danger-soft: #475569;
+            --container-bg: #334155;
+            --paper-bg: #fdf6e3;
+            --paper-text: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, html {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .floating-emergency {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(71, 85, 105, 0.4);
+            color: var(--text-muted);
+            padding: 10px 15px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-emergency:hover {
+            background-color: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .section, iframe {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* === PAGE 1 === */
+        .breathe-container {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .breathe-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(148,163,184,0.8) 0%, rgba(148,163,184,0) 70%);
+            box-shadow: 0 0 40px rgba(148, 163, 184, 0.2);
+            animation: breatheAnim 19s infinite linear;
+        }
+
+        @keyframes breatheAnim {
+            0% { transform: scale(1); opacity: 0.5; }
+            21% { transform: scale(2); opacity: 1; } 
+            58% { transform: scale(2); opacity: 1; } 
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .breathe-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            height: 40px;
+        }
+
+        /* === PAGE 2 === */
+        .paper-container {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+        }
+
+        .paper-scene {
+            position: relative;
+            width: 100%;
+        }
+
+        .paper-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 3px 3px 0 0;
+            box-shadow: 3px 6px 20px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(0,0,0,0.06);
+            overflow: hidden;
+            transform-origin: bottom center;
+            transition: transform 0.3s ease;
+        }
+
+        .paper-lines {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(transparent 34px, #c9bfaa 34px, #c9bfaa 35px, transparent 35px);
+            background-size: 100% 35px;
+            background-position: 0 45px;
+            pointer-events: none;
+            border-radius: 3px;
+            opacity: 0.5;
+        }
+
+        .paper-margin {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(220,100,100,0.35);
+            pointer-events: none;
+        }
+
+        .paper-fold {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 28px 28px 0;
+            border-color: transparent #c9b99a transparent transparent;
+            filter: drop-shadow(-2px 2px 2px rgba(0,0,0,0.15));
+        }
+        .paper-fold::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            right: -28px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 28px 28px 0;
+            border-color: transparent rgba(0,0,0,0.12) transparent transparent;
+        }
+
+        textarea {
+            width: 100%;
+            height: 500px;
+            background-color: var(--paper-bg);
+            color: var(--paper-text);
+            padding: 20px;
+            border: none;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            line-height: 35px;
+            resize: none;
+            outline: none;
+            display: block;
+            position: relative;
+            z-index: 1;
+            background-clip: padding-box;
+        }
+
+        textarea::placeholder {
+            color: #a89880;
+            line-height: 1.4;
+        }
+
+        #fireCanvas {
+            display: block;
+            width: 100%;
+            height: 100px;
+            position: relative;
+            border-radius: 0 0 3px 3px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .burn-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0%;
+            background: linear-gradient(
+                to top,
+                #0a0a0a 0%,
+                #1a0a00 30%,
+                #3d1500 55%,
+                rgba(80,30,0,0.5) 75%,
+                transparent 100%
+            );
+            border-radius: 0 0 3px 3px;
+            pointer-events: none;
+            z-index: 2;
+            transition: none;
+        }
+
+        .tooltip-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 8px;
+        }
+
+        .info-icon {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: #0f172a;
+            color: var(--text-muted);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            right: 0;
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            font-weight: normal;
+            pointer-events: none;
+        }
+
+        .info-icon:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .btn-action {
+            margin-top: 20px;
+            background-color: var(--container-bg);
+            color: var(--text-main);
+            border: 1px solid var(--accent-sage);
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .btn-action:hover {
+            background-color: #475569;
+        }
+
+        #burnBtn.burning-btn {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            margin-top: 20px;
+            color: var(--accent-sage);
+            opacity: 0;
+            transition: opacity 0.8s;
+            min-height: 24px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* === PAGE 3 === */
+        .care-scene {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        #careCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .plant-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 185px;
+            width: 120px;
+            z-index: 1;
+        }
+
+        /* === FOUR-LEAF CLOVER === */
+        .clover-head {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            flex-shrink: 0;
+            transform: rotate(10deg) translateX(4px);
+            transition: transform 1.2s ease, filter 1.2s ease;
+        }
+
+        .clover-leaf {
+            position: absolute;
+            width: 46px;
+            height: 46px;
+            overflow: hidden;
+            transition: background 1.2s ease, box-shadow 1.2s ease;
+        }
+
+        /* Light reflection on each leaf */
+        .clover-leaf::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 58%);
+            border-radius: inherit;
+            z-index: 1;
+        }
+
+        .leaf-tl {
+            top: 0; left: 0;
+            border-radius: 50% 50% 0% 50%;
+            background: radial-gradient(ellipse at 38% 38%, #8b9299 0%, #545f6d 100%);
+        }
+
+        .leaf-tr {
+            top: 0; right: 0;
+            border-radius: 50% 50% 50% 0%;
+            background: radial-gradient(ellipse at 62% 38%, #8b9299 0%, #545f6d 100%);
+        }
+
+        .leaf-br {
+            bottom: 0; right: 0;
+            border-radius: 0% 50% 50% 50%;
+            background: radial-gradient(ellipse at 62% 62%, #8b9299 0%, #545f6d 100%);
+        }
+
+        .leaf-bl {
+            bottom: 0; left: 0;
+            border-radius: 50% 0% 50% 50%;
+            background: radial-gradient(ellipse at 38% 62%, #8b9299 0%, #545f6d 100%);
+        }
+
+        .clover-knot {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #64748b 30%, #3d4d5e 100%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            transition: background 1.2s ease;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .stem {
+            width: 5px;
+            height: 56px;
+            background: linear-gradient(to right, #4a5568, #64748b);
+            border-radius: 3px;
+            flex-shrink: 0;
+            transition: background 1.2s ease;
+        }
+
+        .pot {
+            width: 68px;
+            height: 24px;
+            border: 2px solid var(--text-muted);
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+            position: relative;
+            flex-shrink: 0;
+            overflow: hidden;
+            transition: border-color 1.2s ease;
+        }
+
+        .pot::before {
+            content: '';
+            position: absolute;
+            top: -7px; left: -7px; right: -7px;
+            height: 8px;
+            border: 2px solid var(--text-muted);
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            transition: border-color 1.2s ease;
+        }
+
+        .pot::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 4px; right: 4px;
+            height: 9px;
+            background: linear-gradient(to bottom, #5a3e2b, #3d2a1e);
+            border-radius: 0 0 12px 12px;
+        }
+
+        @keyframes cloverPulse {
+            0%, 100% { transform: rotate(0deg) translateX(0) scale(1); }
+            50%      { transform: rotate(0deg) translateX(0) scale(1.06); }
+        }
+
+        .plant-container.healthy .clover-head {
+            animation: cloverPulse 3.5s ease-in-out infinite;
+            filter: drop-shadow(0 6px 18px rgba(34, 197, 94, 0.45));
+        }
+        .plant-container.healthy .leaf-tl {
+            background: radial-gradient(ellipse at 38% 38%, #dcfce7 0%, #16a34a 100%);
+        }
+        .plant-container.healthy .leaf-tr {
+            background: radial-gradient(ellipse at 62% 38%, #dcfce7 0%, #16a34a 100%);
+        }
+        .plant-container.healthy .leaf-br {
+            background: radial-gradient(ellipse at 62% 62%, #dcfce7 0%, #16a34a 100%);
+        }
+        .plant-container.healthy .leaf-bl {
+            background: radial-gradient(ellipse at 38% 62%, #dcfce7 0%, #16a34a 100%);
+        }
+        .plant-container.healthy .clover-knot {
+            background: radial-gradient(circle, #4ade80 30%, #15803d 100%);
+        }
+        .plant-container.healthy .stem {
+            background: linear-gradient(to right, #15803d, #22c55e);
+        }
+
+        @keyframes plantSway {
+            0%, 100% { transform: rotate(0deg); }
+            20%      { transform: rotate(-3deg); }
+            60%      { transform: rotate(2.5deg); }
+            80%      { transform: rotate(-1.5deg); }
+        }
+        .plant-container.watering {
+            animation: plantSway 0.75s ease-in-out 3;
+            transform-origin: bottom center;
+        }
+
+        .plant-container.lit .clover-head {
+            filter: drop-shadow(0 0 16px rgba(255, 215, 50, 0.95))
+                    drop-shadow(0 0 36px rgba(255, 190, 20, 0.5));
+        }
+
+        .plant-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .plant-msg {
+            color: var(--accent-sage);
+            font-size: 0.95rem;
+            min-height: 45px;
+        }
+
+        /* === FOOTER === */
+        .footer-section {
+            background: linear-gradient(to bottom, var(--bg-color), #0f172a);
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            gap: 0;
+            justify-content: space-between;
+            padding: 48px 24px 32px;
+        }
+
+        .footer-crisis {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            max-width: 520px;
+        }
+
+        .footer-crisis-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-crisis-title span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #86efac;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px rgba(134, 239, 172, 0.6);
+            vertical-align: middle;
+            animation: pulse-dot 2.2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.5; transform: scale(0.7); }
+        }
+
+        .footer-crisis-sub {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .footer-hotline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+            background: rgba(71, 85, 105, 0.35);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 40px;
+            padding: 12px 24px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: background 0.3s, border-color 0.3s, transform 0.2s;
+            backdrop-filter: blur(6px);
+        }
+
+        .footer-hotline:hover {
+            background: rgba(239, 68, 68, 0.25);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .footer-hotline-number {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 1px;
+            background: rgba(148, 163, 184, 0.2);
+            margin: 4px 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: rgba(148, 163, 184, 0.4);
+            font-size: 0.78rem;
+            line-height: 1.8;
+            padding-bottom: 8px;
+        }
+
+        .footer-bottom a {
+            color: rgba(148, 163, 184, 0.55);
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="tel:119" class="floating-emergency">🛟 Bantuan (119)</a>
+
+    <section id="breath" class="section">
+        <div class="breathe-container">
+            <div class="breathe-circle"></div>
+        </div>
+        <div class="breathe-text" id="breatheText">Take a deep breath...</div>
+        <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.85rem;">
+            Let's focus here for a moment. Take it easy, we'll breathe together.
+        </p>
+        <div class="scroll-down">Scroll down ↓</div>
+    </section>
+
+    <section id="release" class="section">
+        <div class="paper-container">
+            <div class="tooltip-wrapper">
+                <div class="info-icon">i
+                    <span class="tooltip-text">Disclaimer: Don't worry, this data is stored locally in your browser and disappears when you refresh</span>
+                </div>
+            </div>
+            <div class="paper-scene">
+                <div class="paper-wrap" id="paperWrap">
+                    <div class="paper-lines"></div>
+                    <div class="paper-margin"></div>
+                    <div class="paper-fold"></div>
+                    <textarea id="badThoughts" placeholder="Pour it all out here. Whether you're mad, exhausted, feeling like a failure, or just want to cry... it's okay. No one is going to judge you here..."></textarea>
+                    <div class="burn-overlay" id="burnOverlay"></div>
+                </div>
+                <canvas id="fireCanvas"></canvas>
+            </div>
+            <button class="btn-action" id="burnBtn" onclick="burnPaper()">Burn this burden</button>
+            <div class="toast-msg" id="burnMsg">It's all ashes now. Put down the heavy load for today. You've done amazingly well just by holding on.</div>
+        </div>
+        <div class="scroll-down">Scroll down ↓</div>
+    </section>
+
+    <section id="care" class="section">
+        <div class="care-scene">
+            <canvas id="careCanvas"></canvas>
+            <div class="plant-container" id="myPlant">
+                <div class="clover-head">
+                    <div class="clover-leaf leaf-tl"></div>
+                    <div class="clover-leaf leaf-tr"></div>
+                    <div class="clover-leaf leaf-br"></div>
+                    <div class="clover-leaf leaf-bl"></div>
+                    <div class="clover-knot"></div>
+                </div>
+                <div class="stem"></div>
+                <div class="pot"></div>
+            </div>
+        </div>
+        <div class="plant-actions">
+            <button class="btn-action" onclick="carePlant('air')">💧 Give Water</button>
+            <button class="btn-action" onclick="carePlant('sinar')">☀️ Light Up</button>
+            <button class="btn-action" onclick="carePlant('bersih')">✨ Clean Leaves</button>
+        </div>
+        <div class="plant-msg" id="plantMsg">This plant needs a little attention.</div>
+    </section>
+
+    <section id="the-nice-place" class="section">
+        <div class="breathe-text" id="breatheText">It's okay, tomorrow will be kinder...</div>
+        
+        <iframe src="https://thenicestplace.net/" frameborder="0" title="The nice place on the internet"></iframe>
+    </section>
+
+    <footer class="section footer-section">
+        <div class="footer-crisis">
+            <div class="footer-crisis-title">
+                <span></span>You're not alone
+            </div>
+            <p class="footer-crisis-sub">
+                If you or someone you know is having a hard time,<br>
+                help is always available.
+            </p>
+            <a href="tel:119" class="footer-hotline">
+                <span>
+                    <span style="font-size:0.72rem; display:block; opacity:0.6; letter-spacing:0.5px;">Kementerian Kesehatan Republik Indonesia</span>
+                    <span class="footer-hotline-number">119</span>
+                </span>
+            </a>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+            Made with care &mdash; &copy; 2026 <strong style="color: rgba(148,163,184,0.65)">Pi</strong><br>
+            <small>This is a safe space, not a substitute for professional help.</small>
+        </div>
+    </footer>
+
+    <script>
+        // === LOGIKA RUANG NAPAS ===
+        const breatheText = document.getElementById('breatheText');
+        const totalTime = 19000; 
+        const breatheTime = 4000; 
+        const holdTime = 7000; 
+
+        function breathingCycle() {
+            breatheText.innerText = "Take a deep breath...";
+            setTimeout(() => {
+                breatheText.innerText = "Hold on...";
+                setTimeout(() => {
+                    breatheText.innerText = "Let it out slowly...";
+                }, holdTime);
+            }, breatheTime);
+        }
+        
+        breathingCycle();
+        setInterval(breathingCycle, totalTime);
+
+        // === LOGIKA KERTAS TERBAKAR (FIRE CANVAS) ===
+        const fireCanvas = document.getElementById('fireCanvas');
+        const fireCtx = fireCanvas.getContext('2d');
+        let fireParticles = [];
+        let fireAnimId = null;
+        let isBurning = false;
+
+        function resizeFireCanvas() {
+            fireCanvas.width = fireCanvas.offsetWidth;
+            fireCanvas.height = fireCanvas.offsetHeight;
+        }
+        resizeFireCanvas();
+        window.addEventListener('resize', resizeFireCanvas);
+
+        function spawnFireParticle() {
+            const x = Math.random() * fireCanvas.width;
+            fireParticles.push({
+                x,
+                y: fireCanvas.height,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: -(Math.random() * 3 + 2),
+                size: Math.random() * 14 + 6,
+                life: 1.0,
+                decay: Math.random() * 0.025 + 0.015,
+                hue: Math.random() * 35, // 0=red, 35=yellow-orange
+            });
+        }
+
+        function drawFire() {
+            fireCtx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
+
+            // Spawn lebih banyak partikel saat terbakar
+            if (isBurning) {
+                for (let i = 0; i < 6; i++) spawnFireParticle();
+            }
+
+            fireParticles.forEach((p, i) => {
+                p.x += p.vx + Math.sin(Date.now() * 0.005 + i) * 0.5;
+                p.y += p.vy;
+                p.vy *= 0.98;
+                p.life -= p.decay;
+                p.size *= 0.985;
+
+                if (p.life <= 0) return;
+
+                const gradient = fireCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+                gradient.addColorStop(0,   `hsla(${p.hue + 40}, 100%, 90%, ${p.life * 0.9})`);
+                gradient.addColorStop(0.3, `hsla(${p.hue + 20}, 100%, 65%, ${p.life * 0.7})`);
+                gradient.addColorStop(0.7, `hsla(${p.hue},      100%, 45%, ${p.life * 0.4})`);
+                gradient.addColorStop(1,   `hsla(${p.hue},      80%,  20%, 0)`);
+
+                fireCtx.beginPath();
+                fireCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                fireCtx.fillStyle = gradient;
+                fireCtx.fill();
+            });
+
+            // Bersihkan partikel mati
+            fireParticles = fireParticles.filter(p => p.life > 0);
+
+            if (fireParticles.length > 0 || isBurning) {
+                fireAnimId = requestAnimationFrame(drawFire);
+            } else {
+                fireCtx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
+            }
+        }
+
+        function burnPaper() {
+            const textarea = document.getElementById('badThoughts');
+            const msg     = document.getElementById('burnMsg');
+            const overlay = document.getElementById('burnOverlay');
+            const btn     = document.getElementById('burnBtn');
+            const canvas  = document.getElementById('fireCanvas');
+            const wrap    = document.getElementById('paperWrap');
+
+            if (textarea.value.trim() === '' || isBurning) return;
+
+            isBurning = true;
+            textarea.readOnly = true;
+            btn.classList.add('burning-btn');
+
+            canvas.style.opacity = '1';
+            resizeFireCanvas();
+            drawFire();
+
+            let burnProgress = 0;
+            const burnInterval = setInterval(() => {
+                burnProgress += 2.2;
+                overlay.style.height = burnProgress + '%';
+                overlay.style.transition = 'none';
+
+                if (burnProgress >= 100) {
+                    clearInterval(burnInterval);
+                    // Kertas habis terbakar: sembunyikan
+                    wrap.style.transition = 'opacity 0.5s';
+                    wrap.style.opacity = '0';
+
+                    setTimeout(() => {
+                        isBurning = false;
+                    }, 1500);
+
+                    setTimeout(() => {
+                        textarea.value = '';
+                        textarea.readOnly = false;
+                        overlay.style.height = '0%';
+                        wrap.style.opacity = '1';
+                        canvas.style.opacity = '0';
+                        btn.classList.remove('burning-btn');
+                        fireParticles = [];
+
+                        msg.style.opacity = '1';
+                        setTimeout(() => { msg.style.opacity = '0'; }, 5000);
+                    }, 2800);
+                }
+            }, 40);
+        }
+
+        const careCanvas    = document.getElementById('careCanvas');
+        const careCtx       = careCanvas.getContext('2d');
+        let careParticles   = [];
+        let careEffect      = null;
+        let careSpawnTimer  = null;
+        let careAnimRunning = false;
+        let plantHealth     = 0;
+
+        function resizeCareCanvas() {
+            careCanvas.width  = careCanvas.offsetWidth;
+            careCanvas.height = careCanvas.offsetHeight;
+        }
+        resizeCareCanvas();
+        window.addEventListener('resize', resizeCareCanvas);
+
+        function spawnCareParticles(effect) {
+            const W = careCanvas.width, H = careCanvas.height;
+
+            if (effect === 'air') {
+                for (let i = 0; i < 2; i++) {
+                    careParticles.push({
+                        type: 'water',
+                        x: W * (0.2 + Math.random() * 0.6),
+                        y: -8,
+                        vx: (Math.random() - 0.5) * 0.8,
+                        vy: Math.random() * 4 + 6,
+                        size: Math.random() * 3 + 2,
+                        life: 1,
+                        splashed: false,
+                    });
+                }
+            } else if (effect === 'sinar') {
+                for (let i = 0; i < 3; i++) {
+                    careParticles.push({
+                        type: 'light',
+                        x: W * 0.5 + (Math.random() - 0.5) * 30,
+                        y: H * 0.05,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: Math.random() * 1.2 + 0.4,
+                        size: Math.random() * 5 + 2,
+                        life: 1,
+                        decay: Math.random() * 0.012 + 0.007,
+                        hue: Math.random() * 25 + 45,
+                    });
+                }
+            } else if (effect === 'bersih') {
+                for (let i = 0; i < 4; i++) {
+                    careParticles.push({
+                        type: 'dust',
+                        x: W * 0.5 + (Math.random() - 0.5) * 55,
+                        y: H * 0.40 + (Math.random() - 0.5) * 28,
+                        vx: (Math.random() - 0.5) * 3.5,
+                        vy: -(Math.random() * 2 + 0.6),
+                        size: Math.random() * 3.5 + 1,
+                        life: 1,
+                        decay: Math.random() * 0.018 + 0.01,
+                        spin: (Math.random() - 0.5) * 0.15,
+                        angle: Math.random() * Math.PI * 2,
+                    });
+                }
+            }
+        }
+
+        function drawCareFrame() {
+            const W = careCanvas.width, H = careCanvas.height;
+            careCtx.clearRect(0, 0, W, H);
+
+            if (careEffect === 'sinar') {
+                const alpha = 0.08 + Math.sin(Date.now() * 0.003) * 0.04;
+                const grd = careCtx.createRadialGradient(W / 2, 0, 0, W / 2, 0, H);
+                grd.addColorStop(0,   `rgba(255, 220, 80, ${alpha})`);
+                grd.addColorStop(0.6, 'rgba(255, 170, 30, 0.03)');
+                grd.addColorStop(1,   'rgba(255, 170, 30, 0)');
+                careCtx.fillStyle = grd;
+                careCtx.fillRect(0, 0, W, H);
+
+                const t = Date.now() * 0.0003;
+                for (let r = 0; r < 7; r++) {
+                    const base = (r / 7) * Math.PI + t;
+                    const len  = H * 1.4;
+                    careCtx.beginPath();
+                    careCtx.moveTo(W / 2, 0);
+                    careCtx.lineTo(W / 2 + Math.cos(base - 0.11) * len, Math.sin(base - 0.11) * len);
+                    careCtx.lineTo(W / 2 + Math.cos(base + 0.11) * len, Math.sin(base + 0.11) * len);
+                    careCtx.closePath();
+                    careCtx.fillStyle = `rgba(255, 235, 100, ${0.032 + Math.sin(Date.now() * 0.002 + r) * 0.012})`;
+                    careCtx.fill();
+                }
+            }
+
+            careParticles.forEach((p) => {
+                if (p.type === 'water') {
+                    if (!p.splashed && p.y > H * 0.85) {
+                        p.splashed = true;
+                        p.life = 0;
+                        for (let s = 0; s < 5; s++) {
+                            careParticles.push({
+                                type: 'splash',
+                                x: p.x, y: H * 0.85,
+                                vx: (Math.random() - 0.5) * 6,
+                                vy: -(Math.random() * 3 + 1),
+                                size: Math.random() * 2 + 1,
+                                life: 1,
+                                decay: 0.05 + Math.random() * 0.04,
+                            });
+                        }
+                        careParticles.push({ type: 'ripple', x: p.x, y: H * 0.85, radius: 1, life: 1, decay: 0.033 });
+                        return;
+                    }
+                    if (p.life <= 0) return;
+                    careCtx.save();
+                    careCtx.translate(p.x, p.y);
+                    careCtx.scale(1, 1.9);
+                    careCtx.beginPath();
+                    careCtx.arc(0, 0, p.size, 0, Math.PI * 2);
+                    careCtx.fillStyle = 'rgba(100, 185, 255, 0.85)';
+                    careCtx.fill();
+                    careCtx.restore();
+                    p.x += p.vx; p.y += p.vy;
+
+                } else if (p.type === 'splash') {
+                    if (p.life <= 0) return;
+                    careCtx.beginPath();
+                    careCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    careCtx.fillStyle = `rgba(140, 210, 255, ${p.life * 0.75})`;
+                    careCtx.fill();
+                    p.x += p.vx; p.y += p.vy; p.vy += 0.32;
+                    p.life -= p.decay;
+
+                } else if (p.type === 'ripple') {
+                    if (p.life <= 0) return;
+                    careCtx.beginPath();
+                    careCtx.ellipse(p.x, p.y, p.radius * 1.7, p.radius * 0.5, 0, 0, Math.PI * 2);
+                    careCtx.strokeStyle = `rgba(100, 185, 255, ${p.life * 0.55})`;
+                    careCtx.lineWidth = 1.5;
+                    careCtx.stroke();
+                    p.radius += 1.6; p.life -= p.decay;
+
+                } else if (p.type === 'light') {
+                    if (p.life <= 0) return;
+                    const gr = careCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2.5);
+                    gr.addColorStop(0,   `hsla(${p.hue}, 100%, 90%, ${p.life * 0.9})`);
+                    gr.addColorStop(0.4, `hsla(${p.hue}, 100%, 70%, ${p.life * 0.4})`);
+                    gr.addColorStop(1,   `hsla(${p.hue}, 100%, 55%, 0)`);
+                    careCtx.beginPath();
+                    careCtx.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
+                    careCtx.fillStyle = gr;
+                    careCtx.fill();
+                    p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+
+                } else if (p.type === 'dust') {
+                    if (p.life <= 0) return;
+                    p.angle += p.spin;
+                    careCtx.save();
+                    careCtx.translate(p.x, p.y);
+                    careCtx.rotate(p.angle);
+                    careCtx.beginPath();
+                    careCtx.arc(0, 0, p.size, 0, Math.PI * 2);
+                    careCtx.fillStyle = `rgba(210, 200, 185, ${p.life * 0.65})`;
+                    careCtx.fill();
+                    if (p.size > 2.2) {
+                        careCtx.beginPath();
+                        careCtx.arc(p.size * 0.3, -p.size * 0.3, p.size * 0.35, 0, Math.PI * 2);
+                        careCtx.fillStyle = `rgba(255, 255, 245, ${p.life * 0.9})`;
+                        careCtx.fill();
+                    }
+                    careCtx.restore();
+                    p.x += p.vx; p.y += p.vy;
+                    p.vx *= 0.96; p.vy *= 0.97;
+                    p.life -= p.decay;
+                }
+            });
+
+            careParticles = careParticles.filter(p => p.life > 0);
+        }
+
+        function ensureCareLoop() {
+            if (careAnimRunning) return;
+            careAnimRunning = true;
+            (function loop() {
+                drawCareFrame();
+                if (careParticles.length > 0 || careEffect !== null) {
+                    requestAnimationFrame(loop);
+                } else {
+                    careCtx.clearRect(0, 0, careCanvas.width, careCanvas.height);
+                    careAnimRunning = false;
+                }
+            })();
+        }
+
+        function startCareEffect(effect) {
+            careEffect = effect;
+            if (careSpawnTimer) clearInterval(careSpawnTimer);
+            const durations = { air: 2400, sinar: 3200, bersih: 2000 };
+            const rates     = { air: 100,  sinar: 80,   bersih: 55  };
+            let elapsed = 0;
+            spawnCareParticles(effect);
+            careSpawnTimer = setInterval(() => {
+                spawnCareParticles(effect);
+                elapsed += rates[effect];
+                if (elapsed >= durations[effect]) {
+                    clearInterval(careSpawnTimer);
+                    careSpawnTimer = null;
+                    careEffect = null;
+                }
+            }, rates[effect]);
+            ensureCareLoop();
+        }
+
+        function carePlant(action) {
+            const plant = document.getElementById('myPlant');
+            const msg   = document.getElementById('plantMsg');
+            plantHealth++;
+
+            if (action === 'air') {
+                startCareEffect('air');
+                plant.classList.remove('watering');
+                void plant.offsetWidth;
+                plant.classList.add('watering');
+                setTimeout(() => plant.classList.remove('watering'), 2200);
+                msg.innerText = "Just like this plant, your body needs hydration too. Have you had a glass of water today?";
+            } else if (action === 'sinar') {
+                startCareEffect('sinar');
+                plant.classList.add('lit');
+                setTimeout(() => plant.classList.remove('lit'), 3500);
+                msg.innerText = "A little light so it's not too dark. It's totally fine if all you can do today is lay in bed, as long as you're safe.";
+            } else {
+                startCareEffect('bersih');
+                msg.innerText = "Wiping the dust off softly. Giving yourself time to rest doesn't mean you're weak, you know.";
+            }
+
+            if (plantHealth >= 3) {
+                plant.classList.add('healthy');
+                setTimeout(() => {
+                    msg.innerText = "Look, it's slowly coming back to life. Thank you for staying and caring for this little thing. You are precious.";
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>
