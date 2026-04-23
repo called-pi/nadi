@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ruang Aman</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
             --bg-color: #1e293b; 
@@ -99,6 +100,16 @@
             background: radial-gradient(circle, rgba(148,163,184,0.8) 0%, rgba(148,163,184,0) 70%);
             box-shadow: 0 0 40px rgba(148, 163, 184, 0.2);
             animation: breatheAnim 19s infinite linear;
+        }
+
+        .disclaimer {
+            display: flex;
+            align-items: center;
+            font-size: 0.72rem;
+            color: rgba(148, 163, 184, 0.45);
+            text-align: right;
+            padding: 10px;
+            line-height: 1.5;
         }
 
         @keyframes breatheAnim {
@@ -234,52 +245,6 @@
             pointer-events: none;
             z-index: 2;
             transition: none;
-        }
-
-        .tooltip-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 8px;
-        }
-
-        .info-icon {
-            background-color: rgba(255,255,255,0.1);
-            color: var(--text-muted);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .tooltip-text {
-            visibility: hidden;
-            width: 250px;
-            background-color: #0f172a;
-            color: var(--text-muted);
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            right: 0;
-            font-size: 0.75rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            font-weight: normal;
-            pointer-events: none;
-        }
-
-        .info-icon:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
         }
 
         .btn-action {
@@ -630,10 +595,9 @@
 
     <section id="release" class="section">
         <div class="paper-container">
-            <div class="tooltip-wrapper">
-                <div class="info-icon">i
-                    <span class="tooltip-text">Disclaimer: Don't worry, this data is stored locally in your browser and disappears when you refresh</span>
-                </div>
+            <div class="disclaimer">
+                <span class="material-icons flex-shrink-0" style="font-size: 16px; margin-top: 1px;">info</span>
+                <span>Your words stay here — never stored, gone when you close the tab.</span>
             </div>
             <div class="paper-scene">
                 <div class="paper-wrap" id="paperWrap">
