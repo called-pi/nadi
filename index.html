@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruang Aman</title>
+    <title>Nadi</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #1e293b; 
+            --bg-color: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent-sage: #9ca3af; 
+            --accent-sage: #9ca3af;
             --danger-soft: #475569;
             --container-bg: #334155;
             --paper-bg: #fdf6e3;
@@ -24,7 +24,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body, html {
+        body,
+        html {
             background-color: var(--bg-color);
             color: var(--text-main);
             height: 100vh;
@@ -55,7 +56,8 @@
             border-color: #ef4444;
         }
 
-        .section, iframe {
+        .section,
+        iframe {
             height: 100vh;
             width: 100%;
             display: flex;
@@ -78,9 +80,22 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         /* === PAGE 1 === */
@@ -97,26 +112,50 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(148,163,184,0.8) 0%, rgba(148,163,184,0) 70%);
+            background: radial-gradient(circle, rgba(148, 163, 184, 0.8) 0%, rgba(148, 163, 184, 0) 70%);
             box-shadow: 0 0 40px rgba(148, 163, 184, 0.2);
             animation: breatheAnim 19s infinite linear;
         }
 
         .disclaimer {
-            display: flex;
-            align-items: center;
             font-size: 0.72rem;
             color: rgba(148, 163, 184, 0.45);
             text-align: right;
-            padding: 10px;
-            line-height: 1.5;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            overflow-wrap: break-word;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .disclaimer .material-icons {
+            font-size: 14px !important;
+            flex-shrink: 0;
+            opacity: 0.7;
         }
 
         @keyframes breatheAnim {
-            0% { transform: scale(1); opacity: 0.5; }
-            21% { transform: scale(2); opacity: 1; } 
-            58% { transform: scale(2); opacity: 1; } 
-            100% { transform: scale(1); opacity: 0.5; }
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            21% {
+                transform: scale(2);
+                opacity: 1;
+            }
+
+            58% {
+                transform: scale(2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
         }
 
         .breathe-text {
@@ -142,7 +181,7 @@
             position: relative;
             width: 100%;
             border-radius: 3px 3px 0 0;
-            box-shadow: 3px 6px 20px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(0,0,0,0.06);
+            box-shadow: 3px 6px 20px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
             overflow: hidden;
             transform-origin: bottom center;
             transition: transform 0.3s ease;
@@ -166,7 +205,7 @@
             top: 0;
             bottom: 0;
             width: 1px;
-            background: rgba(220,100,100,0.35);
+            background: rgba(220, 100, 100, 0.35);
             pointer-events: none;
         }
 
@@ -179,8 +218,9 @@
             border-style: solid;
             border-width: 0 28px 28px 0;
             border-color: transparent #c9b99a transparent transparent;
-            filter: drop-shadow(-2px 2px 2px rgba(0,0,0,0.15));
+            filter: drop-shadow(-2px 2px 2px rgba(0, 0, 0, 0.15));
         }
+
         .paper-fold::after {
             content: '';
             position: absolute;
@@ -190,7 +230,7 @@
             height: 0;
             border-style: solid;
             border-width: 0 28px 28px 0;
-            border-color: transparent rgba(0,0,0,0.12) transparent transparent;
+            border-color: transparent rgba(0, 0, 0, 0.12) transparent transparent;
         }
 
         textarea {
@@ -221,10 +261,14 @@
             display: block;
             width: 100%;
             height: 100px;
-            position: relative;
+            position: absolute; 
+            bottom: 0; 
+            left: 0;
             border-radius: 0 0 3px 3px;
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none; 
+            z-index: 5;
         }
 
         .burn-overlay {
@@ -233,14 +277,12 @@
             left: 0;
             right: 0;
             height: 0%;
-            background: linear-gradient(
-                to top,
-                #0a0a0a 0%,
-                #1a0a00 30%,
-                #3d1500 55%,
-                rgba(80,30,0,0.5) 75%,
-                transparent 100%
-            );
+            background: linear-gradient(to top,
+                    #0a0a0a 0%,
+                    #1a0a00 30%,
+                    #3d1500 55%,
+                    rgba(80, 30, 0, 0.5) 75%,
+                    transparent 100%);
             border-radius: 0 0 3px 3px;
             pointer-events: none;
             z-index: 2;
@@ -248,7 +290,7 @@
         }
 
         .btn-action {
-            margin-top: 20px;
+            margin-top: 25px;
             background-color: var(--container-bg);
             color: var(--text-main);
             border: 1px solid var(--accent-sage);
@@ -256,11 +298,12 @@
             border-radius: 25px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
         }
 
         .btn-action:hover {
             background-color: #475569;
+            transform: translateY(-2px);
         }
 
         #burnBtn.burning-btn {
@@ -276,6 +319,102 @@
             min-height: 24px;
             font-size: 0.92rem;
             line-height: 1.5;
+        }
+
+        .paper-mode-toggle {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+            justify-content: flex-end;
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: rgba(148, 163, 184, 0.45);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: rgba(148, 163, 184, 0.12);
+            color: var(--text-muted);
+            border-color: rgba(148, 163, 184, 0.35);
+        }
+
+        .upload-zone {
+            width: 100%;
+            height: 500px;
+            background-color: var(--paper-bg);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            overflow-y: auto;
+        }
+
+        .upload-prompt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            text-align: center;
+            pointer-events: none;
+            font-family: 'Courier New', Courier, monospace; 
+        }
+
+        .upload-prompt .upload-icon {
+            font-size: 2.2rem;
+        }
+
+        .upload-prompt p {
+            font-size: 1rem; /* Sama dengan teks textarea */
+            font-weight: bold; /* Sedikit tebal agar berfungsi sebagai judul */
+            color: #a89880; /* Warna senada dengan placeholder */
+            font-family: inherit;
+        }
+
+        .upload-prompt small {
+            font-size: 0.85rem;
+            max-width: 250px;
+            line-height: 1.55;
+            color: #a89880;
+            font-family: inherit;
+            opacity: 0.8;
+        }
+        .upload-grid {
+            display: none;
+            width: 100%;
+            height: 100%;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-auto-rows: 130px;
+            gap: 4px;
+            padding: 4px;
+            align-content: start;
+            overflow-y: auto;
+        }
+
+        .upload-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 2px;
+        }
+
+        .upload-error-msg {
+            display: none;
+            font-size: 0.72rem;
+            color: #ef4444;
+            text-align: right;
+            margin-top: 4px;
+            margin-bottom: 0;
         }
 
         /* === PAGE 3 === */
@@ -333,31 +472,35 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 58%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, transparent 58%);
             border-radius: inherit;
             z-index: 1;
         }
 
         .leaf-tl {
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             border-radius: 50% 50% 0% 50%;
             background: radial-gradient(ellipse at 38% 38%, #8b9299 0%, #545f6d 100%);
         }
 
         .leaf-tr {
-            top: 0; right: 0;
+            top: 0;
+            right: 0;
             border-radius: 50% 50% 50% 0%;
             background: radial-gradient(ellipse at 62% 38%, #8b9299 0%, #545f6d 100%);
         }
 
         .leaf-br {
-            bottom: 0; right: 0;
+            bottom: 0;
+            right: 0;
             border-radius: 0% 50% 50% 50%;
             background: radial-gradient(ellipse at 62% 62%, #8b9299 0%, #545f6d 100%);
         }
 
         .leaf-bl {
-            bottom: 0; left: 0;
+            bottom: 0;
+            left: 0;
             border-radius: 50% 0% 50% 50%;
             background: radial-gradient(ellipse at 38% 62%, #8b9299 0%, #545f6d 100%);
         }
@@ -368,11 +511,12 @@
             height: 14px;
             border-radius: 50%;
             background: radial-gradient(circle, #64748b 30%, #3d4d5e 100%);
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
             transition: background 1.2s ease;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .stem {
@@ -399,7 +543,9 @@
         .pot::before {
             content: '';
             position: absolute;
-            top: -7px; left: -7px; right: -7px;
+            top: -7px;
+            left: -7px;
+            right: -7px;
             height: 8px;
             border: 2px solid var(--text-muted);
             border-bottom: none;
@@ -410,54 +556,82 @@
         .pot::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 4px; right: 4px;
+            bottom: 0;
+            left: 4px;
+            right: 4px;
             height: 9px;
             background: linear-gradient(to bottom, #5a3e2b, #3d2a1e);
             border-radius: 0 0 12px 12px;
         }
 
         @keyframes cloverPulse {
-            0%, 100% { transform: rotate(0deg) translateX(0) scale(1); }
-            50%      { transform: rotate(0deg) translateX(0) scale(1.06); }
+
+            0%,
+            100% {
+                transform: rotate(0deg) translateX(0) scale(1);
+            }
+
+            50% {
+                transform: rotate(0deg) translateX(0) scale(1.06);
+            }
         }
 
         .plant-container.healthy .clover-head {
             animation: cloverPulse 3.5s ease-in-out infinite;
             filter: drop-shadow(0 6px 18px rgba(34, 197, 94, 0.45));
         }
+
         .plant-container.healthy .leaf-tl {
             background: radial-gradient(ellipse at 38% 38%, #dcfce7 0%, #16a34a 100%);
         }
+
         .plant-container.healthy .leaf-tr {
             background: radial-gradient(ellipse at 62% 38%, #dcfce7 0%, #16a34a 100%);
         }
+
         .plant-container.healthy .leaf-br {
             background: radial-gradient(ellipse at 62% 62%, #dcfce7 0%, #16a34a 100%);
         }
+
         .plant-container.healthy .leaf-bl {
             background: radial-gradient(ellipse at 38% 62%, #dcfce7 0%, #16a34a 100%);
         }
+
         .plant-container.healthy .clover-knot {
             background: radial-gradient(circle, #4ade80 30%, #15803d 100%);
         }
+
         .plant-container.healthy .stem {
             background: linear-gradient(to right, #15803d, #22c55e);
         }
 
         @keyframes plantSway {
-            0%, 100% { transform: rotate(0deg); }
-            20%      { transform: rotate(-3deg); }
-            60%      { transform: rotate(2.5deg); }
-            80%      { transform: rotate(-1.5deg); }
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(-3deg);
+            }
+
+            60% {
+                transform: rotate(2.5deg);
+            }
+
+            80% {
+                transform: rotate(-1.5deg);
+            }
         }
+
         .plant-container.watering {
             animation: plantSway 0.75s ease-in-out 3;
             transform-origin: bottom center;
         }
 
         .plant-container.lit .clover-head {
-            filter: drop-shadow(0 0 16px rgba(255, 215, 50, 0.95))
-                    drop-shadow(0 0 36px rgba(255, 190, 20, 0.5));
+            filter: drop-shadow(0 0 16px rgba(255, 215, 50, 0.95)) drop-shadow(0 0 36px rgba(255, 190, 20, 0.5));
         }
 
         .plant-actions {
@@ -476,53 +650,71 @@
 
         /* === FOOTER === */
         .footer-section {
-            background: linear-gradient(to bottom, var(--bg-color), #0f172a);
+            height: auto;
+            min-height: auto;
+            scroll-snap-align: start;
+            background: linear-gradient(180deg, var(--bg-color) 0%, #0f172a 100%);
             border-top: 1px solid rgba(148, 163, 184, 0.1);
-            gap: 0;
-            justify-content: space-between;
-            padding: 48px 24px 32px;
-        }
 
-        .footer-crisis {
-            flex: 1;
+            /* Tampilan Default (Mobile): Rata Tengah */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            max-width: 520px;
+            gap: 30px;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .footer-crisis {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex: 1;
         }
 
         .footer-crisis-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: rgba(148, 163, 184, 0.7);
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .footer-crisis-title span {
+        .footer-crisis-title .pulse-dot {
             display: inline-block;
             width: 8px;
             height: 8px;
             background: #86efac;
             border-radius: 50%;
-            margin-right: 10px;
-            box-shadow: 0 0 10px rgba(134, 239, 172, 0.6);
-            vertical-align: middle;
-            animation: pulse-dot 2.2s ease-in-out infinite;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 0 rgba(134, 239, 172, 0.5);
+            animation: pulse-ring 2.4s ease-out infinite;
         }
 
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.5; transform: scale(0.7); }
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(134, 239, 172, 0.55);
+            }
+
+            70% {
+                box-shadow: 0 0 0 7px rgba(134, 239, 172, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(134, 239, 172, 0);
+            }
         }
 
         .footer-crisis-sub {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.7;
-            text-align: center;
-            max-width: 400px;
+            color: rgba(148, 163, 184, 0.4);
+            font-size: 0.8rem;
+            line-height: 1.6;
         }
 
         .footer-hotline {
@@ -530,54 +722,121 @@
             align-items: center;
             gap: 10px;
             margin-top: 8px;
-            background: rgba(71, 85, 105, 0.35);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            border-radius: 40px;
-            padding: 12px 24px;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.22);
+            border-radius: 10px;
+            padding: 10px 18px;
             text-decoration: none;
             color: var(--text-main);
-            font-size: 1rem;
-            transition: background 0.3s, border-color 0.3s, transform 0.2s;
-            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
         }
 
         .footer-hotline:hover {
-            background: rgba(239, 68, 68, 0.25);
-            border-color: rgba(239, 68, 68, 0.5);
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.4);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+        }
+
+        .footer-hotline-icon {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .footer-hotline-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .footer-hotline-label {
+            font-size: 0.65rem;
+            color: rgba(148, 163, 184, 0.7);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
 
         .footer-hotline-number {
-            font-size: 1.25rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            color: #fca5a5;
+            line-height: 1;
         }
 
+        /* Divider Default (Mobile): Garis Horizontal */
         .footer-divider {
-            width: 40px;
+            width: 80%;
+            max-width: 300px;
             height: 1px;
-            background: rgba(148, 163, 184, 0.2);
-            margin: 4px 0;
+            background: rgba(148, 163, 184, 0.1);
         }
 
         .footer-bottom {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
             color: rgba(148, 163, 184, 0.4);
-            font-size: 0.78rem;
-            line-height: 1.8;
-            padding-bottom: 8px;
+            font-size: 0.8rem;
+            line-height: 1.6;
         }
 
-        .footer-bottom a {
-            color: rgba(148, 163, 184, 0.55);
-            text-decoration: none;
+        /* Mencegah nama terlempar ke baris baru */
+        .copyright-text {
+            white-space: nowrap;
         }
 
-        .footer-bottom a:hover {
-            color: var(--text-muted);
+        .footer-bottom strong {
+            color: rgba(148, 163, 184, 0.7);
+            font-weight: 600;
+        }
+
+        .footer-bottom small {
+            font-size: 0.75rem;
+            max-width: 350px;
+        }
+
+        /* --- TAMPILAN DESKTOP & TABLET --- */
+        @media (min-width: 768px) {
+            .footer-section {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 40px 50px;
+                gap: 0;
+                text-align: left;
+            }
+
+            .footer-crisis {
+                align-items: flex-start;
+                /* Hotline Rata Kiri */
+            }
+
+            .footer-crisis-title {
+                justify-content: flex-start;
+            }
+
+            /* Divider Desktop: Berubah Jadi Garis Vertikal */
+            .footer-divider {
+                width: 1px;
+                height: 80px;
+                max-width: none;
+                margin: 0 40px;
+                align-self: center;
+            }
+
+            .footer-bottom {
+                align-items: flex-end;
+                /* Copyright Rata Kanan */
+                text-align: right;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <a href="tel:119" class="floating-emergency">🛟 Bantuan (119)</a>
@@ -595,22 +854,36 @@
 
     <section id="release" class="section">
         <div class="paper-container">
-            <div class="disclaimer">
-                <span class="material-icons flex-shrink-0" style="font-size: 16px; margin-top: 1px;">info</span>
-                <span>Your words stay here — never stored, gone when you close the tab.</span>
+            <div class="paper-mode-toggle">
+                <button class="mode-btn active" id="modeText" onclick="switchMode('text')">Write</button>
+                <button class="mode-btn" id="modeImage" onclick="switchMode('image')">Upload Photo</button>
             </div>
+            <p class="disclaimer"><span class="material-icons">info</span>Your words stay here — never stored, gone when
+                you close the tab.</p>
             <div class="paper-scene">
                 <div class="paper-wrap" id="paperWrap">
                     <div class="paper-lines"></div>
                     <div class="paper-margin"></div>
                     <div class="paper-fold"></div>
-                    <textarea id="badThoughts" placeholder="Pour it all out here. Whether you're mad, exhausted, feeling like a failure, or just want to cry... it's okay. No one is going to judge you here..."></textarea>
+                    <textarea id="badThoughts"
+                        placeholder="Pour it all out here. Whether you're mad, exhausted, feeling like a failure, or just want to cry... it's okay. No one is going to judge you here..."></textarea>
+                    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('imageInput').click()">
+                        <input type="file" id="imageInput" accept="image/*" multiple style="display:none">
+                        <div class="upload-prompt" id="uploadPrompt">
+                            <span class="upload-icon">📷</span>
+                            <p>Leave a heavy memory</p>
+                            <small>Messages, photos, or screenshots — whatever feels too heavy to carry today.</small>
+                        </div>
+                        <div id="uploadGrid" class="upload-grid"></div>
+                    </div>
                     <div class="burn-overlay" id="burnOverlay"></div>
                 </div>
                 <canvas id="fireCanvas"></canvas>
             </div>
             <button class="btn-action" id="burnBtn" onclick="burnPaper()">Burn this burden</button>
-            <div class="toast-msg" id="burnMsg">It's all ashes now. Put down the heavy load for today. You've done amazingly well just by holding on.</div>
+            <p class="upload-error-msg" id="uploadErrorMsg"></p>
+            <div class="toast-msg" id="burnMsg">It's all ashes now. Put down the heavy load for today. You've done
+                amazingly well just by holding on.</div>
         </div>
         <div class="scroll-down">Scroll down ↓</div>
     </section>
@@ -640,29 +913,32 @@
 
     <section id="the-nice-place" class="section">
         <div class="breathe-text" id="breatheText">It's okay, tomorrow will be kinder...</div>
-        
+
         <iframe src="https://thenicestplace.net/" frameborder="0" title="The nice place on the internet"></iframe>
     </section>
 
-    <footer class="section footer-section">
+    <footer class="footer-section">
         <div class="footer-crisis">
             <div class="footer-crisis-title">
-                <span></span>You're not alone
+                <span class="pulse-dot"></span>You're not alone
             </div>
             <p class="footer-crisis-sub">
                 If you or someone you know is having a hard time,<br>
                 help is always available.
             </p>
             <a href="tel:119" class="footer-hotline">
-                <span>
-                    <span style="font-size:0.72rem; display:block; opacity:0.6; letter-spacing:0.5px;">Kementerian Kesehatan Republik Indonesia</span>
+                <span class="footer-hotline-icon">🛟</span>
+                <span class="footer-hotline-info">
+                    <span class="footer-hotline-label">Kementerian Kesehatan RI</span>
                     <span class="footer-hotline-number">119</span>
                 </span>
             </a>
         </div>
+
         <div class="footer-divider"></div>
+
         <div class="footer-bottom">
-            Made with care &mdash; &copy; 2026 <strong style="color: rgba(148,163,184,0.65)">Pi</strong><br>
+            <div class="copyright-text">Made with care &copy; 2026 <strong>Pi</strong></div>
             <small>This is a safe space, not a substitute for professional help.</small>
         </div>
     </footer>
@@ -670,9 +946,9 @@
     <script>
         // === LOGIKA RUANG NAPAS ===
         const breatheText = document.getElementById('breatheText');
-        const totalTime = 19000; 
-        const breatheTime = 4000; 
-        const holdTime = 7000; 
+        const totalTime = 19000;
+        const breatheTime = 4000;
+        const holdTime = 7000;
 
         function breathingCycle() {
             breatheText.innerText = "Take a deep breath...";
@@ -683,7 +959,7 @@
                 }, holdTime);
             }, breatheTime);
         }
-        
+
         breathingCycle();
         setInterval(breathingCycle, totalTime);
 
@@ -718,7 +994,6 @@
         function drawFire() {
             fireCtx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
 
-            // Spawn lebih banyak partikel saat terbakar
             if (isBurning) {
                 for (let i = 0; i < 6; i++) spawnFireParticle();
             }
@@ -733,10 +1008,10 @@
                 if (p.life <= 0) return;
 
                 const gradient = fireCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                gradient.addColorStop(0,   `hsla(${p.hue + 40}, 100%, 90%, ${p.life * 0.9})`);
+                gradient.addColorStop(0, `hsla(${p.hue + 40}, 100%, 90%, ${p.life * 0.9})`);
                 gradient.addColorStop(0.3, `hsla(${p.hue + 20}, 100%, 65%, ${p.life * 0.7})`);
                 gradient.addColorStop(0.7, `hsla(${p.hue},      100%, 45%, ${p.life * 0.4})`);
-                gradient.addColorStop(1,   `hsla(${p.hue},      80%,  20%, 0)`);
+                gradient.addColorStop(1, `hsla(${p.hue},      80%,  20%, 0)`);
 
                 fireCtx.beginPath();
                 fireCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -744,7 +1019,6 @@
                 fireCtx.fill();
             });
 
-            // Bersihkan partikel mati
             fireParticles = fireParticles.filter(p => p.life > 0);
 
             if (fireParticles.length > 0 || isBurning) {
@@ -754,18 +1028,77 @@
             }
         }
 
+        let currentMode = 'text';
+
+        function switchMode(mode) {
+            currentMode = mode;
+            const textarea = document.getElementById('badThoughts');
+            const uploadZone = document.getElementById('uploadZone');
+            document.getElementById('modeText').classList.toggle('active', mode === 'text');
+            document.getElementById('modeImage').classList.toggle('active', mode === 'image');
+            textarea.style.display = mode === 'text' ? 'block' : 'none';
+            uploadZone.style.display = mode === 'image' ? 'flex' : 'none';
+        }
+
+        const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+        let uploadedCount = 0;
+
+        document.getElementById('imageInput').addEventListener('change', function (e) {
+            const files = Array.from(e.target.files);
+            const errorMsg = document.getElementById('uploadErrorMsg');
+            const oversized = files.filter(f => f.size > MAX_FILE_SIZE);
+
+            if (oversized.length > 0) {
+                errorMsg.textContent = `${oversized.length} foto melebihi batas 20MB dan dilewati.`;
+                errorMsg.style.display = 'block';
+                setTimeout(() => { errorMsg.style.display = 'none'; }, 4000);
+            } else {
+                errorMsg.style.display = 'none';
+            }
+
+            const validFiles = files.filter(f => f.size <= MAX_FILE_SIZE);
+            if (validFiles.length === 0) return;
+
+            const grid = document.getElementById('uploadGrid');
+            const prompt = document.getElementById('uploadPrompt');
+
+            validFiles.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    const img = document.createElement('img');
+                    img.src = ev.target.result;
+                    img.className = 'upload-thumb';
+                    img.alt = 'memory to burn';
+                    grid.appendChild(img);
+                    uploadedCount++;
+
+                    if (uploadedCount === 1) {
+                        prompt.style.display = 'none';
+                        grid.style.display = 'grid';
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Reset input so same files can be re-selected
+            e.target.value = '';
+        });
+
         function burnPaper() {
             const textarea = document.getElementById('badThoughts');
-            const msg     = document.getElementById('burnMsg');
+            const msg = document.getElementById('burnMsg');
             const overlay = document.getElementById('burnOverlay');
-            const btn     = document.getElementById('burnBtn');
-            const canvas  = document.getElementById('fireCanvas');
-            const wrap    = document.getElementById('paperWrap');
+            const btn = document.getElementById('burnBtn');
+            const canvas = document.getElementById('fireCanvas');
+            const wrap = document.getElementById('paperWrap');
+            const hasContent = currentMode === 'text'
+                ? textarea.value.trim() !== ''
+                : uploadedCount > 0;
 
-            if (textarea.value.trim() === '' || isBurning) return;
+            if (!hasContent || isBurning) return;
 
             isBurning = true;
-            textarea.readOnly = true;
+            if (currentMode === 'text') textarea.readOnly = true;
             btn.classList.add('burning-btn');
 
             canvas.style.opacity = '1';
@@ -780,7 +1113,6 @@
 
                 if (burnProgress >= 100) {
                     clearInterval(burnInterval);
-                    // Kertas habis terbakar: sembunyikan
                     wrap.style.transition = 'opacity 0.5s';
                     wrap.style.opacity = '0';
 
@@ -797,6 +1129,13 @@
                         btn.classList.remove('burning-btn');
                         fireParticles = [];
 
+                        uploadedCount = 0;
+                        const grid = document.getElementById('uploadGrid');
+                        grid.innerHTML = '';
+                        grid.style.display = 'none';
+                        document.getElementById('uploadPrompt').style.display = 'flex';
+                        document.getElementById('imageInput').value = '';
+
                         msg.style.opacity = '1';
                         setTimeout(() => { msg.style.opacity = '0'; }, 5000);
                     }, 2800);
@@ -804,16 +1143,16 @@
             }, 40);
         }
 
-        const careCanvas    = document.getElementById('careCanvas');
-        const careCtx       = careCanvas.getContext('2d');
-        let careParticles   = [];
-        let careEffect      = null;
-        let careSpawnTimer  = null;
+        const careCanvas = document.getElementById('careCanvas');
+        const careCtx = careCanvas.getContext('2d');
+        let careParticles = [];
+        let careEffect = null;
+        let careSpawnTimer = null;
         let careAnimRunning = false;
-        let plantHealth     = 0;
+        let plantHealth = 0;
 
         function resizeCareCanvas() {
-            careCanvas.width  = careCanvas.offsetWidth;
+            careCanvas.width = careCanvas.offsetWidth;
             careCanvas.height = careCanvas.offsetHeight;
         }
         resizeCareCanvas();
@@ -874,16 +1213,16 @@
             if (careEffect === 'sinar') {
                 const alpha = 0.08 + Math.sin(Date.now() * 0.003) * 0.04;
                 const grd = careCtx.createRadialGradient(W / 2, 0, 0, W / 2, 0, H);
-                grd.addColorStop(0,   `rgba(255, 220, 80, ${alpha})`);
+                grd.addColorStop(0, `rgba(255, 220, 80, ${alpha})`);
                 grd.addColorStop(0.6, 'rgba(255, 170, 30, 0.03)');
-                grd.addColorStop(1,   'rgba(255, 170, 30, 0)');
+                grd.addColorStop(1, 'rgba(255, 170, 30, 0)');
                 careCtx.fillStyle = grd;
                 careCtx.fillRect(0, 0, W, H);
 
                 const t = Date.now() * 0.0003;
                 for (let r = 0; r < 7; r++) {
                     const base = (r / 7) * Math.PI + t;
-                    const len  = H * 1.4;
+                    const len = H * 1.4;
                     careCtx.beginPath();
                     careCtx.moveTo(W / 2, 0);
                     careCtx.lineTo(W / 2 + Math.cos(base - 0.11) * len, Math.sin(base - 0.11) * len);
@@ -945,9 +1284,9 @@
                 } else if (p.type === 'light') {
                     if (p.life <= 0) return;
                     const gr = careCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2.5);
-                    gr.addColorStop(0,   `hsla(${p.hue}, 100%, 90%, ${p.life * 0.9})`);
+                    gr.addColorStop(0, `hsla(${p.hue}, 100%, 90%, ${p.life * 0.9})`);
                     gr.addColorStop(0.4, `hsla(${p.hue}, 100%, 70%, ${p.life * 0.4})`);
-                    gr.addColorStop(1,   `hsla(${p.hue}, 100%, 55%, 0)`);
+                    gr.addColorStop(1, `hsla(${p.hue}, 100%, 55%, 0)`);
                     careCtx.beginPath();
                     careCtx.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
                     careCtx.fillStyle = gr;
@@ -998,7 +1337,7 @@
             careEffect = effect;
             if (careSpawnTimer) clearInterval(careSpawnTimer);
             const durations = { air: 2400, sinar: 3200, bersih: 2000 };
-            const rates     = { air: 100,  sinar: 80,   bersih: 55  };
+            const rates = { air: 100, sinar: 80, bersih: 55 };
             let elapsed = 0;
             spawnCareParticles(effect);
             careSpawnTimer = setInterval(() => {
@@ -1015,7 +1354,7 @@
 
         function carePlant(action) {
             const plant = document.getElementById('myPlant');
-            const msg   = document.getElementById('plantMsg');
+            const msg = document.getElementById('plantMsg');
             plantHealth++;
 
             if (action === 'air') {
