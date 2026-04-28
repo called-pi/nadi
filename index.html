@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,6 +107,19 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 30px;
+            position: relative;
+        }
+
+        .breathe-count {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: 200;
+            color: rgba(248, 250, 252, 0.75);
+            letter-spacing: -1px;
+            pointer-events: none;
+            user-select: none;
+            text-shadow: 0 0 20px rgba(148, 163, 184, 0.6);
+            transition: opacity 0.4s;
         }
 
         .breathe-circle {
@@ -844,6 +858,7 @@
     <section id="breath" class="section">
         <div class="breathe-container">
             <div class="breathe-circle"></div>
+            <div id="breatheCount" class="breathe-count">4</div>
         </div>
         <div class="breathe-text" id="breatheText">Take a deep breath...</div>
         <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.85rem;">
@@ -858,7 +873,7 @@
                 <button class="mode-btn active" id="modeText" onclick="switchMode('text')">Write</button>
                 <button class="mode-btn" id="modeImage" onclick="switchMode('image')">Upload Photo</button>
             </div>
-            <p class="disclaimer"><span class="material-icons">info</span>Your words stay here — never stored, gone when
+            <p class="disclaimer">Your words stay here — never stored, gone when
                 you close the tab.</p>
             <div class="paper-scene">
                 <div class="paper-wrap" id="paperWrap">
@@ -946,22 +961,37 @@
     <script>
         // === LOGIKA RUANG NAPAS ===
         const breatheText = document.getElementById('breatheText');
-        const totalTime = 19000;
-        const breatheTime = 4000;
-        const holdTime = 7000;
+        const breatheCount = document.getElementById('breatheCount');
 
-        function breathingCycle() {
-            breatheText.innerText = "Take a deep breath...";
-            setTimeout(() => {
-                breatheText.innerText = "Hold on...";
-                setTimeout(() => {
-                    breatheText.innerText = "Let it out slowly...";
-                }, holdTime);
-            }, breatheTime);
+        const breathePhases = [
+            { label: 'Take a deep breath...', duration: 4 },
+            { label: 'Hold on...',            duration: 7 },
+            { label: 'Let it out slowly...',  duration: 8 },
+        ];
+
+        let currentPhase = 0;
+        let phaseRemaining = breathePhases[0].duration;
+        let countdownInterval = null;
+
+        function runBreathPhase() {
+            const phase = breathePhases[currentPhase];
+            breatheText.innerText = phase.label;
+            phaseRemaining = phase.duration;
+            breatheCount.innerText = phaseRemaining;
+
+            if (countdownInterval) clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                phaseRemaining--;
+                breatheCount.innerText = phaseRemaining > 0 ? phaseRemaining : '';
+                if (phaseRemaining <= 0) {
+                    clearInterval(countdownInterval);
+                    currentPhase = (currentPhase + 1) % breathePhases.length;
+                    runBreathPhase();
+                }
+            }, 1000);
         }
 
-        breathingCycle();
-        setInterval(breathingCycle, totalTime);
+        runBreathPhase();
 
         // === LOGIKA KERTAS TERBAKAR (FIRE CANVAS) ===
         const fireCanvas = document.getElementById('fireCanvas');
@@ -1383,4 +1413,5 @@
         }
     </script>
 </body>
+
 </html>
